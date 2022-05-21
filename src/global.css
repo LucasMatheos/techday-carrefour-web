@@ -5,7 +5,3 @@
 html {
   @apply font-carrefour;
 }
-
-body {
-  @apply bg-[#09090A] text-zinc-100;
-}
