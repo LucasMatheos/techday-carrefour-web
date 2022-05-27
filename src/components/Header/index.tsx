@@ -8,8 +8,8 @@ export function Header() {
       <div className="flex align-center bg-cfblue-500 rounded-md ">
         <input
           type="search"
-          placeholder="Pesquise uma loja mais proxima de você"
-          className="w-72 p-2 bg-white border-2 border-cfblue-500 rounded-lg"
+          placeholder="Digite um CEP: 00000-000"
+          className="w-56 p-2 bg-white border-2 border-cfblue-500 rounded-lg"
         />
         <button className="p-3 rounded-r-lg ">
           <MagnifyingGlass size={20} color="#fcfcfc" />

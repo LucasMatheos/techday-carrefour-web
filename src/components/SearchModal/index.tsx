@@ -1,11 +1,26 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Dialog } from "@headlessui/react";
+import { WarningCircle } from "phosphor-react";
+import { useRef } from "react";
+import { toast } from "react-toastify";
 
 interface SearchModalProps {
   isOpen: boolean;
+  setCep: (cep: string) => void;
 }
 
-export function SearchModal({ isOpen }: SearchModalProps) {
+export function SearchModal({ isOpen, setCep }: SearchModalProps) {
+  let textInput = useRef<HTMLInputElement | null>(null);
+
+  function handleSetCep() {
+    if (textInput.current !== null) {
+      if (textInput.current.value == "") {
+        toast.error("Digite um CEP!");
+        return;
+      }
+      setCep(textInput.current.value);
+    }
+  }
+
   return (
     <>
       <Dialog open={isOpen} onClose={() => {}} className="relative z-50">
@@ -27,12 +42,16 @@ export function SearchModal({ isOpen }: SearchModalProps) {
                 </p>
                 <div className="mt-4 ">
                   <input
+                    ref={textInput}
                     type="text"
                     placeholder="00000-000"
                     pattern="^\d{5}-\d{3}$"
                     className="  p-2 w-[150px] bg-slate-200 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-cfblue-500"
                   />
-                  <button className="text-white  bg-cfblue-500 rounded-r-lg p-2 mr-1 ">
+                  <button
+                    onClick={handleSetCep}
+                    className="text-white  bg-cfblue-500 rounded-r-lg p-2 mr-1 "
+                  >
                     Buscar
                   </button>
                 </div>

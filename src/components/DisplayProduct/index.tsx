@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { apiCep, apiSellerName } from "../../services/api";
 import { ProductCard } from "../ProductCard";
 
-export function TesterApi() {
+export function DisplayProduct() {
   const [cep, setCep] = useState([]);
   const [product, setProdutc] = useState([]);
 
