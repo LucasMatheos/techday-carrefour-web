@@ -25,7 +25,7 @@ export function TesterApi() {
   }, []);
 
   return (
-    <div className="flex flex-wrap gap-2 w-[1440px] mx-auto mt-2">
+    <div className="flex flex-wrap gap-2 max-w-[1440px] mx-auto mt-2">
       {product.map((products) => {
         return <ProductCard />;
       })}
