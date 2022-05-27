@@ -1,14 +1,15 @@
 import { Dialog } from "@headlessui/react";
-import { WarningCircle } from "phosphor-react";
 import { useRef } from "react";
 import { toast } from "react-toastify";
+import { Loading } from "./Loading";
 
 interface SearchModalProps {
   isOpen: boolean;
   setCep: (cep: string) => void;
+  isLoading: boolean;
 }
 
-export function SearchModal({ isOpen, setCep }: SearchModalProps) {
+export function SearchModal({ isOpen, setCep, isLoading }: SearchModalProps) {
   let textInput = useRef<HTMLInputElement | null>(null);
 
   function handleSetCep() {
@@ -36,26 +37,32 @@ export function SearchModal({ isOpen, setCep }: SearchModalProps) {
                   Day
                 </p>
               </Dialog.Title>
-              <div className="flex flex-col items-center mt-2 p-2 text-lg ">
-                <p className="p-2">
-                  Digite um CEP para buscar uma loja mais proxima de você!
-                </p>
-                <div className="mt-4 ">
-                  <input
-                    ref={textInput}
-                    type="text"
-                    placeholder="00000-000"
-                    pattern="^\d{5}-\d{3}$"
-                    className="  p-2 w-[150px] bg-slate-200 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-cfblue-500"
-                  />
-                  <button
-                    onClick={handleSetCep}
-                    className="text-white  bg-cfblue-500 rounded-r-lg p-2 mr-1 "
-                  >
-                    Buscar
-                  </button>
+
+              {isLoading ? (
+                <Loading />
+              ) : (
+                <div className="flex flex-col items-center mt-2 p-2 text-lg ">
+                  <p className="p-2">
+                    Digite um CEP para buscar uma loja mais proxima de você!
+                  </p>
+                  <div className="mt-4 ">
+                    <input
+                      ref={textInput}
+                      type="text"
+                      placeholder="00000-000"
+                      pattern="^\d{5}-\d{3}$"
+                      className="  p-2 w-[150px] bg-slate-200 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-cfblue-500"
+                    />
+                    <button
+                      onClick={handleSetCep}
+                      className="text-white  bg-cfblue-500 rounded-r-lg p-2 mr-1 "
+                    >
+                      Buscar
+                    </button>
+                  </div>
                 </div>
-              </div>
+              )}
+
               <footer className="text-xs text-neutral-400 mt-2 p-2">
                 Feito por
                 <a

@@ -6,18 +6,21 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function App() {
-  const [modalIsOpen, setModalisOpen] = useState(true);
+  const [modalIsOpen, setModalIsOpen] = useState(true);
   const [cep, setCep] = useState("0");
+  const [isLoading, setIsLoading] = useState(false)
 
   function handleCloseModal() {
-    setModalisOpen(false);
+    setModalIsOpen(false);
   }
 
   return (
     <>
       <Header />
       {cep}
-      <SearchModal isOpen={modalIsOpen} setCep={setCep} />
+      <SearchModal isOpen={modalIsOpen} setCep={setCep} isLoading={isLoading}/>
+
+
       <ToastContainer
         position="top-right"
         autoClose={3000}
