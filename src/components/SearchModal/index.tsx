@@ -7,19 +7,33 @@ interface SearchModalProps {
   isOpen: boolean;
   setCep: (cep: string) => void;
   isLoading: boolean;
+  getProducts: (cepNumber:string) => void;
 }
 
-export function SearchModal({ isOpen, setCep, isLoading }: SearchModalProps) {
+export function SearchModal({
+  isOpen,
+  setCep,
+  isLoading,
+  getProducts,
+}: SearchModalProps) {
   let textInput = useRef<HTMLInputElement | null>(null);
-
+  let cepNumber = ""
   function handleSetCep() {
+    // Fazer o resto da validação aqui \/\/\/\/\/\/\/\/
     if (textInput.current !== null) {
       if (textInput.current.value == "") {
         toast.error("Digite um CEP!");
         return;
       }
       setCep(textInput.current.value);
+      cepNumber = textInput.current.value
+      
     }
+  }
+
+  function handleSeach() {
+    handleSetCep();
+    getProducts(cepNumber);
   }
 
   return (
@@ -50,11 +64,12 @@ export function SearchModal({ isOpen, setCep, isLoading }: SearchModalProps) {
                       ref={textInput}
                       type="text"
                       placeholder="00000-000"
-                      pattern="^\d{5}-\d{3}$"
+                      pattern="[0-9]*"
+                      maxLength={8}
                       className="  p-2 w-[150px] bg-slate-200 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-cfblue-500"
                     />
                     <button
-                      onClick={handleSetCep}
+                      onClick={handleSeach}
                       className="text-white  bg-cfblue-500 rounded-r-lg p-2 mr-1 "
                     >
                       Buscar

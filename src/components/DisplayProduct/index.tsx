@@ -2,32 +2,21 @@ import { useEffect, useState } from "react";
 import { apiCep, apiSellerName } from "../../services/api";
 import { ProductCard } from "../ProductCard";
 
-export function DisplayProduct() {
-  const [cep, setCep] = useState([]);
-  const [product, setProdutc] = useState([]);
+interface Product {
+  name: string;
+  id: number;
+  urlImage: string;
+  price: number;
+}
 
-  const getProducts = async () => {
-    const cep = await apiCep
-      .get("regions?country=BRA&postalCode=52050320")
-      .then((response) => response.data);
-
-    const cepIds = cep[0]["sellers"][0].id;
-
-    const products = await apiSellerName
-      .get(`/search?fq=${cepIds}`)
-      .then((response) => response.data);
-
-    setProdutc(products);
-  };
-
-  useEffect(() => {
-    getProducts();
-  }, []);
-
+interface DisplayProductProps {
+  products: Array<Product>;
+}
+export function DisplayProduct({ products }: DisplayProductProps) {
   return (
     <div className="flex flex-wrap gap-2 max-w-[1440px] mx-auto mt-2">
-      {product.map((products) => {
-        return <ProductCard />;
+      {products.map((product) => {
+        return <ProductCard name={product.name} id={product.id} urlImage={product.urlImage} price={product.price}/>;
       })}
     </div>
   );

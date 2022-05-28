@@ -1,6 +1,13 @@
 import { AddRemoveProduct } from "./AddRemove";
+interface ProductCardProps {
+  name: string;
+  id: number;
+  urlImage: string;
+  price: number;
+}
 
-export function ProductCard() {
+
+export function ProductCard({id, name, urlImage, price}: ProductCardProps) {
   return (
     <div
       className="border-2
@@ -20,8 +27,8 @@ export function ProductCard() {
         w-[175px]
         m-auto          
         "
-        src="https://carrefourbr.vteximg.com.br/arquivos/ids/14648703/alho-granel-kg-1.jpg"
-        alt="Alho a granel Aprox. 200g"
+        src={urlImage}
+        alt={name}
       />
 
       <h1
@@ -29,11 +36,11 @@ export function ProductCard() {
       w-auto 
       p-2"
       >
-        Alho a granel Aprox. 200g
+        {name}
       </h1>
 
       <p className=" text-xl text-cfblue-500 font-bold mt-6 p-1 ">
-        R$ <span>11,12</span>
+        R$ <span>{price}</span>
       </p>
 
       <button
