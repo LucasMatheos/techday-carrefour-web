@@ -1,14 +1,8 @@
-import { useState } from "react";
-import { Header } from "./components/Header";
-import { SearchModal } from "./components/SearchModal";
-import { toast, ToastContainer } from "react-toastify";
-import { apiCep, apiSellerName } from "./services/api";
-import { ProductAPI } from "./util/types";
-import { DisplayProduct } from "./components/DisplayProduct";
-import { formatPrice } from "./util/format";
-
-import "react-toastify/dist/ReactToastify.css";
-import { CartProvider } from "./hooks/useCart";
+import { createContext, ReactNode, useContext, useState } from "react";
+import { toast } from "react-toastify";
+import { apiCep, apiSellerName } from "../services/api";
+import { formatPrice } from "../util/format";
+import { ProductAPI } from "../util/types";
 
 interface Product {
   name: string;
@@ -16,10 +10,21 @@ interface Product {
   urlImage: string;
   price: string;
 }
+interface CartProviderProps {
+  children: ReactNode;
+}
+interface CartContextData {
+  modalIsOpen: boolean;
+   isLoading: boolean
+   products: Array<Product>
+  getProducts: (cepNumber: string) => void
+}
 
-export default function App() {
+
+const CartContext = createContext({} as CartContextData);
+
+export function CartProvider({ children }: CartProviderProps) {
   const [modalIsOpen, setModalIsOpen] = useState(true);
-  const [cep, setCep] = useState("0");
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
 
@@ -62,16 +67,16 @@ export default function App() {
   }
 
   return (
-    <CartProvider>
-      <Header />
-      <SearchModal
-        isOpen={modalIsOpen}
-        isLoading={isLoading}
-        getProducts={getProducts}
-      />
-      <DisplayProduct products={products} />
-
-      <ToastContainer />
-    </CartProvider>
+    <CartContext.Provider
+      value={{ modalIsOpen, isLoading, products, getProducts }}
+    >
+      {children}
+    </CartContext.Provider>
   );
+}
+
+export function useCart(): CartContextData {
+  const context = useContext(CartContext);
+
+  return context;
 }

@@ -5,19 +5,17 @@ import { Loading } from "./Loading";
 
 interface SearchModalProps {
   isOpen: boolean;
-  setCep: (cep: string) => void;
   isLoading: boolean;
-  getProducts: (cepNumber:string) => void;
+  getProducts: (cepNumber: string) => void;
 }
 
 export function SearchModal({
   isOpen,
-  setCep,
   isLoading,
   getProducts,
 }: SearchModalProps) {
   let textInput = useRef<HTMLInputElement | null>(null);
-  let cepNumber = ""
+  let cepNumber = "";
   function handleSetCep() {
     // Fazer o resto da validação aqui \/\/\/\/\/\/\/\/
     if (textInput.current !== null) {
@@ -25,9 +23,7 @@ export function SearchModal({
         toast.error("Digite um CEP!");
         return;
       }
-      setCep(textInput.current.value);
-      cepNumber = textInput.current.value
-      
+      cepNumber = textInput.current.value;
     }
   }
 
