@@ -1,5 +1,6 @@
 import Logo from "../../assets/logo.png";
 import { MagnifyingGlass } from "phosphor-react";
+import { CartIcon } from "./CartIcon";
 
 export function Header() {
   return (
@@ -12,8 +13,9 @@ export function Header() {
           className="w-56 p-2 bg-white border-2 border-cfblue-500 rounded-lg"
         />
         <button className="p-3 rounded-r-lg ">
-          <MagnifyingGlass size={20} color="#fcfcfc" />
+          <MagnifyingGlass size={22} color="#fcfcfc" />
         </button>
+        <CartIcon/>
       </div>
     </div>
   );

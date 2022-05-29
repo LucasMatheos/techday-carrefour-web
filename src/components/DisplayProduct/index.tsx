@@ -6,7 +6,7 @@ interface Product {
   name: string;
   id: number;
   urlImage: string;
-  price: number;
+  price: string;
 }
 
 interface DisplayProductProps {
@@ -16,7 +16,7 @@ export function DisplayProduct({ products }: DisplayProductProps) {
   return (
     <div className="flex flex-wrap gap-2 max-w-[1440px] mx-auto mt-2">
       {products.map((product) => {
-        return <ProductCard name={product.name} id={product.id} urlImage={product.urlImage} price={product.price}/>;
+        return <ProductCard key={product.id} name={product.name} id={product.id} urlImage={product.urlImage} price={product.price}/>;
       })}
     </div>
   );

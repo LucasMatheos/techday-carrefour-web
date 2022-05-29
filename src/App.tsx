@@ -2,17 +2,18 @@ import { useState } from "react";
 import { Header } from "./components/Header";
 import { SearchModal } from "./components/SearchModal";
 import { toast, ToastContainer } from "react-toastify";
-
-import "react-toastify/dist/ReactToastify.css";
 import { apiCep, apiSellerName } from "./services/api";
 import { ProductAPI } from "./util/types";
 import { DisplayProduct } from "./components/DisplayProduct";
+import { formatPrice } from "./util/format";
+
+import "react-toastify/dist/ReactToastify.css";
 
 interface Product {
   name: string;
   id: number;
   urlImage: string;
-  price: number;
+  price: string;
 }
 
 export default function App() {
@@ -43,16 +44,15 @@ export default function App() {
         .then((response) => response.data);
 
       const products = allProducts.map((product) => {
-        console.log(allProducts);
         return {
           name: product.productName,
           id: product.productId,
           urlImage: product.items[0].images[0].imageUrl,
-          price: product.items[0].sellers[0].commertialOffer.Price,
+          price: formatPrice(product.items[0].sellers[0].commertialOffer.Price),
         };
       });
-      setProducts(products);
 
+      setProducts(products);
       handleSearchingDone();
     } catch (err) {
       toast.error("Algo deu errado, tente novamente!");
@@ -69,7 +69,7 @@ export default function App() {
         isLoading={isLoading}
         getProducts={getProducts}
       />
-      <DisplayProduct products={products}/>
+      <DisplayProduct products={products} />
 
       <ToastContainer />
     </>

@@ -3,13 +3,12 @@ interface ProductCardProps {
   name: string;
   id: number;
   urlImage: string;
-  price: number;
+  price: string;
 }
 
-
-export function ProductCard({id, name, urlImage, price}: ProductCardProps) {
+export function ProductCard({ id, name, urlImage, price }: ProductCardProps) {
   return (
-    <div
+    <li
       className="border-2
       rounded-md
       w-[13rem]
@@ -40,7 +39,7 @@ export function ProductCard({id, name, urlImage, price}: ProductCardProps) {
       </h1>
 
       <p className=" text-xl text-cfblue-500 font-bold mt-6 p-1 ">
-        R$ <span>{price}</span>
+        <span>{price}</span>
       </p>
 
       <button
@@ -56,8 +55,8 @@ export function ProductCard({id, name, urlImage, price}: ProductCardProps) {
       >
         ADICIONAR
       </button>
-      
+
       <AddRemoveProduct />
-    </div>
+    </li>
   );
 }
