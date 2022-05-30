@@ -15,8 +15,8 @@ interface CartProviderProps {
 }
 interface CartContextData {
   modalIsOpen: boolean;
-   isLoading: boolean
-   products: Array<Product>
+  isLoading: boolean
+  products: Array<Product>
   getProducts: (cepNumber: string) => void
 }
 
