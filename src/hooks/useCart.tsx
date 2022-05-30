@@ -10,6 +10,11 @@ interface Product {
   urlImage: string;
   price: string;
 }
+
+interface CartProduct extends Product {
+  amount: number;
+}
+
 interface CartProviderProps {
   children: ReactNode;
 }
@@ -27,6 +32,7 @@ export function CartProvider({ children }: CartProviderProps) {
   const [modalIsOpen, setModalIsOpen] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
+  const [cart, setCart] = useState<CartProduct[]>([]);  
 
   function handleIsLoading() {
     setIsLoading(true);

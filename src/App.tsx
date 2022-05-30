@@ -1,75 +1,16 @@
-import { useState } from "react";
 import { Header } from "./components/Header";
 import { SearchModal } from "./components/SearchModal";
-import { toast, ToastContainer } from "react-toastify";
-import { apiCep, apiSellerName } from "./services/api";
-import { ProductAPI } from "./util/types";
+import { ToastContainer } from "react-toastify";
 import { DisplayProduct } from "./components/DisplayProduct";
-import { formatPrice } from "./util/format";
-
 import "react-toastify/dist/ReactToastify.css";
 import { CartProvider } from "./hooks/useCart";
 
-interface Product {
-  name: string;
-  id: number;
-  urlImage: string;
-  price: string;
-}
-
 export default function App() {
-  const [modalIsOpen, setModalIsOpen] = useState(true);
-  const [cep, setCep] = useState("0");
-  const [isLoading, setIsLoading] = useState(false);
-  const [products, setProducts] = useState<Product[]>([]);
-
-  function handleIsLoading() {
-    setIsLoading(true);
-  }
-  function handleSearchingDone() {
-    setIsLoading(false);
-    setModalIsOpen(false);
-  }
-
-  async function getProducts(cepNumber: string) {
-    try {
-      handleIsLoading();
-      const nearbySellers = await apiCep
-        .get(`regions?country=BRA&postalCode=${cepNumber}`)
-        .then((response) => response.data);
-
-      const firstSellerId = nearbySellers[0]["sellers"][0].id;
-
-      const allProducts = await apiSellerName
-        .get<ProductAPI[]>(`/search?fq=${firstSellerId}`)
-        .then((response) => response.data);
-
-      const products = allProducts.map((product) => {
-        return {
-          name: product.productName,
-          id: product.productId,
-          urlImage: product.items[0].images[0].imageUrl,
-          price: formatPrice(product.items[0].sellers[0].commertialOffer.Price),
-        };
-      });
-
-      setProducts(products);
-      handleSearchingDone();
-    } catch (err) {
-      toast.error("Algo deu errado, tente novamente!");
-      setIsLoading(false);
-    }
-  }
-
   return (
     <CartProvider>
       <Header />
-      <SearchModal
-        isOpen={modalIsOpen}
-        isLoading={isLoading}
-        getProducts={getProducts}
-      />
-      <DisplayProduct products={products} />
+      <SearchModal />
+      <DisplayProduct />
 
       <ToastContainer />
     </CartProvider>
