@@ -8,7 +8,7 @@ interface Product {
   name: string;
   id: number;
   urlImage: string;
-  price: string;
+  price: number;
 }
 
 interface CartProduct extends Product {
@@ -19,12 +19,14 @@ interface CartProviderProps {
   children: ReactNode;
 }
 interface CartContextData {
+  cart: CartProduct[];
   modalIsOpen: boolean;
-  isLoading: boolean
-  products: Array<Product>
-  getProducts: (cepNumber: string) => void
+  isLoading: boolean;
+  products: Array<Product>;
+  getProducts: (cepNumber: string) => void;
+  addProduct: (productId: number) => void;
+  removeProductAmount: (productId: number) => void;
 }
-
 
 const CartContext = createContext({} as CartContextData);
 
@@ -32,7 +34,7 @@ export function CartProvider({ children }: CartProviderProps) {
   const [modalIsOpen, setModalIsOpen] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
-  const [cart, setCart] = useState<CartProduct[]>([]);  
+  const [cart, setCart] = useState<CartProduct[]>([]);
 
   function handleIsLoading() {
     setIsLoading(true);
@@ -60,7 +62,7 @@ export function CartProvider({ children }: CartProviderProps) {
           name: product.productName,
           id: product.productId,
           urlImage: product.items[0].images[0].imageUrl,
-          price: formatPrice(product.items[0].sellers[0].commertialOffer.Price),
+          price: product.items[0].sellers[0].commertialOffer.Price,
         };
       });
 
@@ -72,9 +74,64 @@ export function CartProvider({ children }: CartProviderProps) {
     }
   }
 
+  const addProduct = (productId: number) => {
+    try {
+      const findProduct = products.find((product) => product.id === productId);
+      if (findProduct) {
+        const updatedCart = [...cart];
+        const productExists = updatedCart.find(
+          (product) => product.id === productId
+        );
+
+        if (productExists) {
+          productExists.amount += 1;
+        } else {
+          const updatedProduct = { ...findProduct, amount: 1 };
+          updatedCart.push(updatedProduct);
+        }
+        setCart(updatedCart);
+      } else {
+        toast.error("Produto não existe!");
+      }
+    } catch (err) {
+      toast.error("Algo deu errado!");
+    }
+  };
+
+  const removeProductAmount = (productId: number) => {
+    try {
+      const updatedCart = [...cart];
+      const productExists = updatedCart.find(
+        (product) => product.id === productId
+      );
+
+      if (productExists) {
+        if (productExists.amount > 1) {
+          productExists.amount -= 1;
+          setCart(updatedCart);
+        } else {
+          const removeProduct = updatedCart.filter(
+            (product) => product.id !== productId
+          );
+          setCart(removeProduct);
+        }
+      }
+    } catch (err) {
+      toast.error("Algo deu errado!");
+    }
+  };
+
   return (
     <CartContext.Provider
-      value={{ modalIsOpen, isLoading, products, getProducts }}
+      value={{
+        modalIsOpen,
+        isLoading,
+        products,
+        getProducts,
+        addProduct,
+        removeProductAmount,
+        cart,
+      }}
     >
       {children}
     </CartContext.Provider>

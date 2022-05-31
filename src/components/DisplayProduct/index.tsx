@@ -2,10 +2,10 @@ import { useCart } from "../../hooks/useCart";
 import { ProductCard } from "../ProductCard";
 
 export function DisplayProduct() {
-  const { products } = useCart();
+  const { products,cart } = useCart();
 
   return (
-    <div className="flex flex-wrap gap-2 max-w-[1440px] m-auto mt-2">
+    <div className="flex flex-wrap justify-center gap-2 max-w-[1440px] m-auto mt-2">
       {products.map((product) => {
         return (
           <ProductCard
@@ -17,6 +17,8 @@ export function DisplayProduct() {
           />
         );
       })}
+
+      {JSON.stringify(cart)}
     </div>
   );
 }
