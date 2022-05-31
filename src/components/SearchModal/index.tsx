@@ -4,18 +4,15 @@ import { toast } from "react-toastify";
 import { useCart } from "../../hooks/useCart";
 import { Loading } from "./Loading";
 
-
-export function SearchModal(
- ) {
+export function SearchModal() {
   let textInput = useRef<HTMLInputElement | null>(null);
   let cepNumber = "";
 
-  const {modalIsOpen,isLoading,getProducts }= useCart();
+  const { modalIsOpen, isLoading, getProducts } = useCart();
   function handleSetCep() {
-      if (textInput.current !== null) {
+    if (textInput.current !== null) {
       if (textInput.current.value == "") {
         toast.error("Digite um CEP!");
-        return;
       }
       cepNumber = textInput.current.value;
     }
@@ -33,7 +30,7 @@ export function SearchModal(
 
         <div className="fixed inset-0 flex items-center justify-center p-4 ">
           <div className="flex min-h-full items-center justify-center ">
-            <Dialog.Panel className="flex flex-col items-center w-[100%]  h-[275px] rounded-lg bg-white/90 p-4 sm:w-[100%]">
+            <Dialog.Panel className="flex flex-col items-center md:w-[550px]  md:h-[275px] rounded-lg bg-white/90 p-4 ">
               <Dialog.Title className="text-2xl flex flex-col gap-1 justify-center items-center m-auto ">
                 Bem Vindo ao
                 <p className="text-3xl font-bold text-cfred-500">
