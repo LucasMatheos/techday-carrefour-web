@@ -2,7 +2,7 @@ import { useCart } from "../../hooks/useCart";
 import { ProductCard } from "../ProductCard";
 
 export function DisplayProduct() {
-  const { products,cart } = useCart();
+  const { products, cart } = useCart();
 
   return (
     <div className="flex flex-wrap justify-center gap-2 max-w-[1440px] m-auto mt-2">
@@ -17,8 +17,6 @@ export function DisplayProduct() {
           />
         );
       })}
-
-      {JSON.stringify(cart)}
     </div>
   );
 }
