@@ -5,6 +5,7 @@ import { useCart } from "../../hooks/useCart";
 import { useRef } from "react";
 import { toast } from "react-toastify";
 import { Loading } from "../SearchModal/Loading";
+import { Link } from "react-router-dom";
 
 export function Header() {
   let textInput = useRef<HTMLInputElement | null>(null);
@@ -27,7 +28,9 @@ export function Header() {
 
   return (
     <div className="max-w-[1440px] mx-auto p-3 md:flex  md:justify-between border-b border-cfblue-900 ">
-      <img src={Logo} alt="Carrefour" className="w-56" />
+      <Link to="/">
+        <img src={Logo} alt="Carrefour" className="w-56" />
+      </Link>
       {!modalIsOpen && isLoading && <Loading />}
       <div className="flex align-center bg-cfblue-500 rounded-md ">
         <input
@@ -40,7 +43,9 @@ export function Header() {
         <button className="p-3 rounded-r-lg " onClick={() => handleSeach()}>
           <MagnifyingGlass size={22} color="#fcfcfc" />
         </button>
-        <CartIcon />
+        <Link to="/cart">
+          <CartIcon />
+        </Link>
       </div>
     </div>
   );
