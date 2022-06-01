@@ -3,7 +3,13 @@ import { useCart } from "../../hooks/useCart";
 import { formatPrice } from "../../util/format";
 
 export function DisplayCart() {
-  const { cart } = useCart();
+  const { cart, addProduct, removeProductAmount, removeProduct } = useCart();
+
+  const TotalAmount = cart.reduce((amount, product) => {
+    const subTotalAmount = product.price * product.amount;
+    amount += subTotalAmount;
+    return amount;
+  }, 0);
 
   return (
     <div className="p-2 rounded-md max-w-[1440px] m-auto">
@@ -39,7 +45,12 @@ export function DisplayCart() {
                   </td>
                   <td>
                     <div className="flex items-center">
-                      <button type="button">
+                      <button
+                        type="button"
+                        disabled={product.amount <= 1}
+                        onClick={() => removeProductAmount(product.id)}
+                        className="disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
                         <MinusCircle size={28} color="#e81e26" />
                       </button>
                       <input
@@ -48,7 +59,10 @@ export function DisplayCart() {
                         value={product.amount}
                         className="border-[1px] rounded-md text-[#646464] p-[6px] w-12"
                       />
-                      <button type="button">
+                      <button
+                        type="button"
+                        onClick={() => addProduct(product.id)}
+                      >
                         <PlusCircle size={28} color="green" />
                       </button>
                     </div>
@@ -59,7 +73,9 @@ export function DisplayCart() {
                     </strong>
                   </td>
                   <td>
-                    <TrashSimple size={28} color="gray" />
+                    <button onClick={() => removeProduct(product.id)}>
+                      <TrashSimple size={28} color="gray" />
+                    </button>
                   </td>
                 </tr>
               );
@@ -75,10 +91,9 @@ export function DisplayCart() {
 
         <div className="items-baseline">
           <span className="font-bold">TOTAL </span>
-          <strong className="text-2xl">R$ 250,00</strong>
+          <strong className="text-2xl">{formatPrice(TotalAmount)}</strong>
         </div>
       </footer>
     </div>
   );
 }
-//https://picsum.photos/200

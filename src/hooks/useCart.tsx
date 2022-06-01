@@ -26,6 +26,7 @@ interface CartContextData {
   getProducts: (cepNumber: string) => void;
   addProduct: (productId: number) => void;
   removeProductAmount: (productId: number) => void;
+  removeProduct: (productId: number) => void;
 }
 
 const CartContext = createContext({} as CartContextData);
@@ -121,6 +122,23 @@ export function CartProvider({ children }: CartProviderProps) {
     }
   };
 
+  const removeProduct = (productId: number) => {
+    try {
+      const updatedCart = [...cart];
+      const productExists = updatedCart.find(
+        (product) => product.id === productId
+      );
+
+      if (productExists) {
+        const productToBeRemoved = updatedCart.filter(
+          (product) => product.id !== productId
+        );
+        setCart(productToBeRemoved);
+      }
+    } catch (err) {
+      toast.error("Algo deu errado!");
+    }
+  };
   return (
     <CartContext.Provider
       value={{
@@ -130,6 +148,7 @@ export function CartProvider({ children }: CartProviderProps) {
         getProducts,
         addProduct,
         removeProductAmount,
+        removeProduct,
         cart,
       }}
     >
