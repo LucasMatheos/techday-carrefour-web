@@ -9,6 +9,7 @@ export function SearchModal() {
   let cepNumber = "";
 
   const { modalIsOpen, isLoading, getProducts } = useCart();
+
   function handleSetCep() {
     if (textInput.current !== null) {
       if (textInput.current.value == "") {
