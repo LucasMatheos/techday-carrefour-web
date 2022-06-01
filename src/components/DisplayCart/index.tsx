@@ -73,7 +73,10 @@ export function DisplayCart() {
                     </strong>
                   </td>
                   <td>
-                    <button onClick={() => removeProduct(product.id)}>
+                    <button
+                      onClick={() => removeProduct(product.id)}
+                      className="opacity-50 hover:opacity-100 transition-opacity duration-300"
+                    >
                       <TrashSimple size={28} color="gray" />
                     </button>
                   </td>
