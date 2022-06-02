@@ -1,6 +1,7 @@
-import { useCart } from "../../hooks/useCart";
-import { formatPrice } from "../../util/format";
+import { useCart } from "../../../hooks/useCart";
+import { formatPrice } from "../../../util/format";
 import { AddRemoveProduct } from "./AddRemove";
+
 interface ProductCardProps {
   name: string;
   id: number;
@@ -16,8 +17,9 @@ export function ProductCard({ id, name, urlImage, price }: ProductCardProps) {
 
   const cartItensAmount = cart.reduce((sumAmount, product) => {
     sumAmount[product.id] = product.amount;
-
+    
     return sumAmount;
+
   }, {} as CartItemsAmount);
   return (
     <li

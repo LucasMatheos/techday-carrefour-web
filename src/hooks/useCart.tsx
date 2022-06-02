@@ -1,7 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { apiCep, apiSellerName } from "../services/api";
-import { formatPrice } from "../util/format";
 import { ProductAPI } from "../util/types";
 
 interface Product {
@@ -18,6 +17,7 @@ interface CartProduct extends Product {
 interface CartProviderProps {
   children: ReactNode;
 }
+
 interface CartContextData {
   cart: CartProduct[];
   modalIsOpen: boolean;
@@ -58,7 +58,7 @@ export function CartProvider({ children }: CartProviderProps) {
         .get<ProductAPI[]>(`/search?fq=${firstSellerId}`)
         .then((response) => response.data);
 
-      const products = allProducts.map((product) => {
+      const productsAPI = allProducts.map((product) => {
         return {
           name: product.productName,
           id: product.productId,
@@ -67,7 +67,7 @@ export function CartProvider({ children }: CartProviderProps) {
         };
       });
 
-      setProducts(products);
+      setProducts(productsAPI);
       handleSearchingDone();
     } catch (err) {
       toast.error("Algo deu errado, tente novamente!");
@@ -130,10 +130,10 @@ export function CartProvider({ children }: CartProviderProps) {
       );
 
       if (productExists) {
-        const productToBeRemoved = updatedCart.filter(
+        const remainingProducts = updatedCart.filter(
           (product) => product.id !== productId
         );
-        setCart(productToBeRemoved);
+        setCart(remainingProducts);
       }
     } catch (err) {
       toast.error("Algo deu errado!");
@@ -159,6 +159,6 @@ export function CartProvider({ children }: CartProviderProps) {
 
 export function useCart(): CartContextData {
   const context = useContext(CartContext);
-
+  
   return context;
 }

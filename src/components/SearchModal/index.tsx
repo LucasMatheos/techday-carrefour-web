@@ -14,14 +14,15 @@ export function SearchModal() {
     if (textInput.current !== null) {
       if (textInput.current.value == "") {
         toast.error("Digite um CEP!");
+        return
       }
       cepNumber = textInput.current.value;
     }
   }
 
-  function handleSeach() {
-    handleSetCep();
-    getProducts(cepNumber);
+  function handleSearch() {
+    handleSetCep()
+    cepNumber ? getProducts(cepNumber) : null
   }
 
   return (
@@ -57,7 +58,7 @@ export function SearchModal() {
                       className="  p-2 w-[150px] bg-slate-200 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-cfblue-500"
                     />
                     <button
-                      onClick={handleSeach}
+                      onClick={handleSearch}
                       className="text-white  bg-cfblue-500 rounded-r-lg p-2 mr-1 "
                     >
                       Buscar

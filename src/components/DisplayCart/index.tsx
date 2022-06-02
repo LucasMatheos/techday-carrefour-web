@@ -27,7 +27,10 @@ export function DisplayCart() {
           <tbody>
             {cart.map((product) => {
               return (
-                <tr className="p-3 border-b-[1px] border-[#999]">
+                <tr
+                  key={product.id}
+                  className="p-3 border-b-[1px] border-[#999]"
+                >
                   <td className=" flex justify-center items-center p-1">
                     <img
                       className="h-[100px] rounded-md"

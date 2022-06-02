@@ -23,7 +23,7 @@ export function Header() {
 
   function handleSeach() {
     handleSetCep();
-    getProducts(cepNumber);
+    cepNumber ? getProducts(cepNumber) : null;
   }
 
   return (
