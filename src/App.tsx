@@ -9,7 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 import { RoutesAPP } from "./routes";
 
 export default function App() {
-  const { modalIsOpen } = useCart();
+
 
   return (
     <CartProvider>
