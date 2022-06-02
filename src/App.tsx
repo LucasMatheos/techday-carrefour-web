@@ -4,18 +4,20 @@ import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 
-import { CartProvider } from "./hooks/useCart";
+import { CartProvider, useCart } from "./hooks/useCart";
 import { BrowserRouter } from "react-router-dom";
 import { RoutesAPP } from "./routes";
 
 export default function App() {
+  const { modalIsOpen } = useCart();
+
   return (
     <CartProvider>
       <BrowserRouter>
         <ToastContainer />
-
-        <Header />
         <SearchModal />
+        <Header />
+
         <RoutesAPP />
       </BrowserRouter>
     </CartProvider>
