@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { toast } from "react-toastify";
-import { apiCep, apiSellerName } from "../services/api";
+import { api } from "../services/api";
 import { ProductAPI } from "../util/types";
 
 interface Product {
@@ -48,14 +48,14 @@ export function CartProvider({ children }: CartProviderProps) {
   async function getProducts(cepNumber: string) {
     try {
       handleIsLoading();
-      const nearbySellers = await apiCep
-        .get(`regions?country=BRA&postalCode=${cepNumber}`)
+      const nearbySellers = await api
+        .get(`postalcode?postalCode=${cepNumber}`)
         .then((response) => response.data);
 
       const firstSellerId = nearbySellers[0]["sellers"][0].id;
 
-      const allProducts = await apiSellerName
-        .get<ProductAPI[]>(`/search?fq=${firstSellerId}`)
+      const allProducts = await api
+        .get<ProductAPI[]>(`products?sellerName=${firstSellerId}`)
         .then((response) => response.data);
 
       const productsAPI = allProducts.map((product) => {
@@ -159,6 +159,6 @@ export function CartProvider({ children }: CartProviderProps) {
 
 export function useCart(): CartContextData {
   const context = useContext(CartContext);
-  
+
   return context;
 }
