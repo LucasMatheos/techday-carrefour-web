@@ -1,29 +1,42 @@
 import { Dialog } from "@headlessui/react";
-import { useRef } from "react";
+import { KeyboardEvent, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import { useCart } from "../../hooks/useCart";
+import { formatPostalCode } from "../../util/format";
 import { Loading } from "./Loading";
 
 export function SearchModal() {
   let textInput = useRef<HTMLInputElement | null>(null);
   let cepNumber = "";
 
-  const { modalIsOpen, isLoading, getProducts } = useCart();
+  const { modalIsOpen, isLoading, getProducts, postalCode } = useCart();
 
   function handleSetCep() {
     if (textInput.current !== null) {
       if (textInput.current.value == "") {
         toast.error("Digite um CEP!");
-        return
+        return;
       }
       cepNumber = textInput.current.value;
     }
   }
 
-  function handleSearch() {
-    handleSetCep()
-    cepNumber ? getProducts(cepNumber) : null
+  function handleEnterPress(e: KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
   }
+
+  function handleSearch() {
+    handleSetCep();
+    cepNumber ? getProducts(cepNumber) : null;
+  }
+
+  useEffect(() => {
+    if (postalCode) {
+      getProducts(postalCode);
+    }
+  }, []);
 
   return (
     <>
@@ -42,7 +55,15 @@ export function SearchModal() {
               </Dialog.Title>
 
               {isLoading ? (
-                <Loading />
+                <div className="p-2 flex flex-col gap-2 items-center m-auto">
+                  <p className="p-2 text-lg">
+                    CEP atual:
+                    <span className="ml-1 underline underline-offset-2 decoration-1">
+                      {formatPostalCode(postalCode)}
+                    </span>
+                  </p>
+                  <Loading />
+                </div>
               ) : (
                 <div className="flex flex-col items-center mt-2 p-2 text-lg ">
                   <p className="p-2">
@@ -56,6 +77,7 @@ export function SearchModal() {
                       pattern="[0-9]*"
                       maxLength={8}
                       className="  p-2 w-[150px] bg-slate-200 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-cfblue-500"
+                      onKeyDown={(e) => handleEnterPress(e)}
                     />
                     <button
                       onClick={handleSearch}

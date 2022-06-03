@@ -1,4 +1,11 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { toast } from "react-toastify";
 import { api } from "../services/api";
 import { ProductAPI } from "../util/types";
@@ -22,6 +29,7 @@ interface CartContextData {
   cart: CartProduct[];
   modalIsOpen: boolean;
   isLoading: boolean;
+  postalCode: string;
   products: Array<Product>;
   getProducts: (cepNumber: string) => void;
   addProduct: (productId: number) => void;
@@ -35,7 +43,43 @@ export function CartProvider({ children }: CartProviderProps) {
   const [modalIsOpen, setModalIsOpen] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
-  const [cart, setCart] = useState<CartProduct[]>([]);
+  const [postalCode, setPostalCode] = useState(() => {
+    const postalCode = localStorage.getItem("@Carrefour:postalCode");
+
+    if (postalCode) {
+      return postalCode;
+    }
+
+    return "";
+  });
+
+  const [cart, setCart] = useState<CartProduct[]>(() => {
+    const storageCart = localStorage.getItem("@Carrefour:cart");
+
+    if (storageCart) {
+      return JSON.parse(storageCart);
+    }
+
+    return [];
+  });
+
+  const prevCartRef = useRef<CartProduct[]>();
+
+  useEffect(() => {
+    prevCartRef.current = cart;
+  });
+
+  const previewCart = prevCartRef.current ?? cart;
+
+  useEffect(() => {
+    if (previewCart !== cart) {
+      localStorage.setItem("@Carrefour:cart", JSON.stringify(cart));
+    }
+  }, [cart, previewCart]);
+
+  useEffect(() => {
+    localStorage.setItem("@Carrefour:postalCode", postalCode);
+  }, [postalCode]);
 
   function handleIsLoading() {
     setIsLoading(true);
@@ -66,7 +110,7 @@ export function CartProvider({ children }: CartProviderProps) {
           price: product.items[0].sellers[0].commertialOffer.Price,
         };
       });
-
+      setPostalCode(cepNumber);
       setProducts(productsAPI);
       handleSearchingDone();
     } catch (err) {
@@ -114,6 +158,7 @@ export function CartProvider({ children }: CartProviderProps) {
           const removeProduct = updatedCart.filter(
             (product) => product.id !== productId
           );
+          toast.warn("Produto removido!");
           setCart(removeProduct);
         }
       }
@@ -133,6 +178,7 @@ export function CartProvider({ children }: CartProviderProps) {
         const remainingProducts = updatedCart.filter(
           (product) => product.id !== productId
         );
+        toast.warn("Produto removido!");
         setCart(remainingProducts);
       }
     } catch (err) {
@@ -150,6 +196,7 @@ export function CartProvider({ children }: CartProviderProps) {
         removeProductAmount,
         removeProduct,
         cart,
+        postalCode
       }}
     >
       {children}

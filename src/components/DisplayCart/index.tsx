@@ -33,7 +33,7 @@ export function DisplayCart() {
                 >
                   <td className=" flex justify-center items-center p-1">
                     <img
-                      className="h-[100px] rounded-md"
+                      className="h-[100px] rounded-md sm:visible invisible"
                       src={product.urlImage}
                       alt={product.name}
                     />

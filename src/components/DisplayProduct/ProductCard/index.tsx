@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { useCart } from "../../../hooks/useCart";
 import { formatPrice } from "../../../util/format";
 import { AddRemoveProduct } from "./AddRemove";
@@ -15,17 +16,30 @@ interface CartItemsAmount {
 export function ProductCard({ id, name, urlImage, price }: ProductCardProps) {
   const { cart, addProduct, removeProductAmount } = useCart();
 
+  function handleTruncatedProduct(name: string) {
+    let productName = name.slice(0, 25);
+    if (name.length > 25) {
+      productName = productName + "...";
+    }
+    toast.success(`${productName} adicionado ao carrinho!`);
+  }
+
+  function handleFirstProduct(productid: number, productname: string) {
+    handleTruncatedProduct(productname);
+    addProduct(productid);
+  }
   const cartItensAmount = cart.reduce((sumAmount, product) => {
     sumAmount[product.id] = product.amount;
-    
-    return sumAmount;
 
+    return sumAmount;
   }, {} as CartItemsAmount);
+
   return (
     <li
       className="border-2
       rounded-md
-      w-[13rem]
+      w-full
+      sm:w-[13rem]
       px-2
       pb-4
       flex
@@ -44,15 +58,19 @@ export function ProductCard({ id, name, urlImage, price }: ProductCardProps) {
         alt={name}
       />
 
-      <h1
+      <p
         className="
-      w-auto 
-      p-2"
+        h-20 
+        overflow-ellipsis 
+        overflow-hidden
+        w-auto 
+        p-2
+        "
       >
         {name}
-      </h1>
+      </p>
 
-      <p className=" text-xl text-cfblue-500 font-bold mt-6 p-1 ">
+      <p className=" text-xl  text-cfblue-500 font-bold mt-6 p-1 ">
         <span>{formatPrice(price)}</span>
       </p>
       {cartItensAmount[id] > 0 ? (
@@ -65,15 +83,21 @@ export function ProductCard({ id, name, urlImage, price }: ProductCardProps) {
       ) : (
         <button
           className="
+          w-[calc(60vw)]
+          m-auto
+          sm:w-full
         bg-cfblue-500 
-      text-white
-        p-2 
-        mt-2
-        rounded-md
-        shadow-md
-      shadow-cfblue-500
+        text-white
+          p-3
+          sm:p-2
+          mt-2
+          rounded-md
+          shadow-md
+        shadow-cfblue-500
+          transition-all duration-300 ease-linear
+          hover:bg-cfblue-900
       "
-          onClick={() => addProduct(id)}
+          onClick={() => handleFirstProduct(id, name)}
         >
           ADICIONAR
         </button>

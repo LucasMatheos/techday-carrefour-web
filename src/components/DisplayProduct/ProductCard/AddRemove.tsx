@@ -1,3 +1,5 @@
+import { PlusCircle, MinusCircle } from "phosphor-react";
+
 interface AddRemoveProductProps {
   id: number;
   cartAmount: number;
@@ -8,36 +10,37 @@ interface AddRemoveProductProps {
 export function AddRemoveProduct({
   addProduct,
   removeProductAmount,
-  id,cartAmount
+  id,
+  cartAmount,
 }: AddRemoveProductProps) {
   return (
     <div
       className="flex 
-    content-center
+    items-center
     justify-between
     rounded-md
-    p-1 
+    p-2
+    sm:p-1 
     mt-2
     border-[1px]
-    border-[#d9d9d9]
-    shadow-[#d9d9d9]
+    border-[#bbbbbb]
+    shadow-[s#bbbbbb]
     shadow-md
-    "
+    w-[calc(60vw)]
+    m-auto
+    sm:w-full
+    
+    
+        "
     >
-      <button
-        className=" ml-2  bg-red-700  rounded-full  w-7  text-white  text-xl  font-black  subpixel-antialiased"
-        onClick={() => removeProductAmount(id)}
-      >
-        -
+      <button className="" onClick={() => removeProductAmount(id)}>
+        <MinusCircle color="red" size={30} />
       </button>
 
-      <span className="font-semibold  text-md">{cartAmount}</span>
+      <span className="  text-lg">{cartAmount}</span>
 
-      <button
-        className="mr-2  bg-green-700  rounded-full  w-7 text-white  text-xl  font-black  subpixel-antialiased"
-        onClick={() => addProduct(id)}
-      >
-        +
+      <button className="" onClick={() => addProduct(id)}>
+        <PlusCircle color={"green"} size={30} />
       </button>
     </div>
   );
