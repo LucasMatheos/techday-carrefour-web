@@ -78,7 +78,7 @@ export function SearchModal() {
                       ref={textInput}
                       type="text"
                       placeholder="00000-000"
-                      pattern="[0-9]*"
+                      pattern="[0-9]{5}-[0-9]{3}"
                       maxLength={8}
                       className="  p-2 w-[150px] bg-slate-200 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-cfblue-500"
                       onKeyDown={(e) => handleEnterPress(e)}
