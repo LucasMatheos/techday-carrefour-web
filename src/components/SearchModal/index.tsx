@@ -56,7 +56,7 @@ export function SearchModal() {
 
               {isLoading ? (
                 <div className="p-2 flex flex-col gap-2 items-center m-auto">
-                  {postalCode ?? (
+                  {postalCode !== "" ? (
                     <>
                       <p className="p-2 text-lg">
                         CEP atual:
@@ -65,7 +65,7 @@ export function SearchModal() {
                         </span>
                       </p>
                     </>
-                  )}
+                  ) : null}
                   <Loading />
                 </div>
               ) : (
