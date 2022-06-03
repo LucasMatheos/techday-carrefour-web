@@ -56,12 +56,14 @@ export function SearchModal() {
 
               {isLoading ? (
                 <div className="p-2 flex flex-col gap-2 items-center m-auto">
-                  <p className="p-2 text-lg">
-                    CEP atual:
-                    <span className="ml-1 underline underline-offset-2 decoration-1">
-                      {formatPostalCode(postalCode)}
-                    </span>
-                  </p>
+                  {postalCode ?? (
+                    <p className="p-2 text-lg">
+                      CEP atual:
+                      <span className="ml-1 underline underline-offset-2 decoration-1">
+                        {formatPostalCode(postalCode)}
+                      </span>
+                    </p>
+                  )}
                   <Loading />
                 </div>
               ) : (

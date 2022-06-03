@@ -42,7 +42,6 @@ export function Header() {
           className="w-[calc(100vw-1rem)] sm:w-60"
         />
       </Link>
-      {postalCode}
       {!modalIsOpen && isLoading ? (
         <Loading />
       ) : (
