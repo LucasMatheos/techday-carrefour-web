@@ -31,6 +31,8 @@ interface CartContextData {
   isLoading: boolean;
   postalCode: string;
   products: Array<Product>;
+  setCart: (cart: CartProduct[]) => void;
+  setPostalCode: (postalCode: string) => void;
   getProducts: (cepNumber: string) => void;
   addProduct: (productId: number) => void;
   removeProductAmount: (productId: number) => void;
@@ -196,7 +198,9 @@ export function CartProvider({ children }: CartProviderProps) {
         removeProductAmount,
         removeProduct,
         cart,
-        postalCode
+        postalCode,
+        setPostalCode,
+        setCart,
       }}
     >
       {children}

@@ -1,9 +1,12 @@
 import { MinusCircle, PlusCircle, TrashSimple } from "phosphor-react";
+import { Route } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
 import { formatPrice } from "../../util/format";
+import { ShoppingDoneForm } from "./ShoppingDoneForm";
 
 export function DisplayCart() {
-  const { cart, addProduct, removeProductAmount, removeProduct } = useCart();
+  const { cart, postalCode, addProduct, removeProductAmount, removeProduct } =
+    useCart();
 
   const TotalAmount = cart.reduce((amount, product) => {
     const subTotalAmount = product.price * product.amount;
@@ -91,9 +94,7 @@ export function DisplayCart() {
       </section>
 
       <footer className="mt-[30px] flex justify-between items-center">
-        <button className="bg-cfblue-500 text-[#fff] border-0 rounded-md py-3 px-5 font-bold uppercase hover:bg-cfblue-900 transition duration-300">
-          Finalizar pedido
-        </button>
+        <ShoppingDoneForm />
 
         <div className="items-baseline">
           <span className="font-bold">TOTAL </span>
