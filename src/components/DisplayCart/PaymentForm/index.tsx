@@ -9,7 +9,7 @@ import { useCart } from "../../../hooks/useCart";
 import { ShoppingDoneMessage } from "./ShoppingDoneMessage";
 import { useNavigate } from "react-router-dom";
 
-interface PaymentData {
+type PaymentData = {
   cardNumber: string;
   cvv: string;
   expiryDate: string;
@@ -39,7 +39,7 @@ export function PaymentForm({
   paymentFormIsOpen,
   setPaymentFormIsOpen,
 }: PaymentFormProps) {
-  const { register, handleSubmit, formState } = useForm({
+  const { register, handleSubmit, formState } = useForm<PaymentData>({
     resolver: yupResolver(CreatePaymentFormSchema),
   });
 
@@ -48,7 +48,7 @@ export function PaymentForm({
   const { errors } = formState;
 
   //Error on type <FieldValue> , PaymentData nor
-  const handlePaymentConfirm: SubmitHandler<FieldValues> = async (value) => {
+  const handlePaymentConfirm: SubmitHandler<PaymentData> = async (value) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     console.log(value);
   };
