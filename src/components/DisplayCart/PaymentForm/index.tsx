@@ -2,19 +2,19 @@ import { Fragment, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Loading } from "../../SearchModal/Loading";
 import { X } from "phosphor-react";
 import { useCart } from "../../../hooks/useCart";
 import { ShoppingDoneMessage } from "./ShoppingDoneMessage";
 import { useNavigate } from "react-router-dom";
 
-type PaymentData = {
+interface PaymentData {
   cardNumber: string;
   cvv: string;
   expiryDate: string;
   name: string;
-};
+}
 
 interface PaymentFormProps {
   paymentFormIsOpen: boolean;
@@ -47,7 +47,8 @@ export function PaymentForm({
   const navigate = useNavigate();
   const { errors } = formState;
 
-  const handlePaymentConfirm: SubmitHandler<PaymentData> = async (value) => {
+  //Error on type <FieldValue> , PaymentData nor
+  const handlePaymentConfirm: SubmitHandler<FieldValues> = async (value) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     console.log(value);
   };
