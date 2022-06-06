@@ -1,12 +1,12 @@
 import { MinusCircle, PlusCircle, TrashSimple } from "phosphor-react";
-import { Route } from "react-router-dom";
+import { useState } from "react";
 import { useCart } from "../../hooks/useCart";
 import { formatPrice } from "../../util/format";
-import { ShoppingDoneForm } from "./ShoppingModal";
+import { PaymentForm } from "./PaymentForm";
 
 export function DisplayCart() {
-  const { cart, postalCode, addProduct, removeProductAmount, removeProduct } =
-    useCart();
+  const { cart, addProduct, removeProductAmount, removeProduct } = useCart();
+  const [paymentFormIsOpen, setPaymentFormIsOpen] = useState(false);
 
   const TotalAmount = cart.reduce((amount, product) => {
     const subTotalAmount = product.price * product.amount;
@@ -95,9 +95,14 @@ export function DisplayCart() {
 
       <footer className="mt-[30px] flex justify-between items-center">
         <button
+          onClick={() => setPaymentFormIsOpen(true)}
           disabled={cart.length === 0}
           className="bg-cfblue-500 flex justify-center w-[190px] text-[#fff] border-0 rounded-md py-3 px-3 font-bold uppercase hover:bg-cfblue-900 transition duration-300 disabled:cursor-not-allowed"
         >
+          <PaymentForm
+            paymentFormIsOpen={paymentFormIsOpen}
+            setPaymentFormIsOpen={setPaymentFormIsOpen}
+          />
           Finalizar compra
         </button>
 
