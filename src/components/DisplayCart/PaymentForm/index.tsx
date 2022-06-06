@@ -47,7 +47,6 @@ export function PaymentForm({
   const navigate = useNavigate();
   const { errors } = formState;
 
-  //Error on type <FieldValue> , PaymentData nor
   const handlePaymentConfirm: SubmitHandler<PaymentData> = async (value) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     console.log(value);
