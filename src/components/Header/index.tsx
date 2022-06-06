@@ -11,7 +11,7 @@ export function Header() {
   let textInput = useRef<HTMLInputElement | null>(null);
   let cepNumber = "";
 
-  const { modalIsOpen, isLoading, getProducts, postalCode } = useCart();
+  const { modalIsOpen, isLoading, getProducts, postalCode, cart } = useCart();
 
   function handleSetCep() {
     if (textInput.current !== null) {
@@ -57,9 +57,7 @@ export function Header() {
           <button className="p-3 rounded-r-lg " onClick={() => handleSearch()}>
             <MagnifyingGlass size={22} color="#fcfcfc" />
           </button>
-          <Link to="/cart">
-            <CartIcon />
-          </Link>
+          <CartIcon isNotAllowed={cart.length < 1} />
         </div>
       )}
     </div>
