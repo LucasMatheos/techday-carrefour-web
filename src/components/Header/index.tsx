@@ -49,7 +49,7 @@ export function Header() {
           <input
             ref={textInput}
             type="text"
-            placeholder="00000-000"
+            placeholder="Busque outro CEP:"
             maxLength={8}
             className=" p-2 bg-slate-200 border-2 border-cfblue-500 rounded-lg md:w-56"
             onKeyDown={(e) => handleEnterPress(e)}
