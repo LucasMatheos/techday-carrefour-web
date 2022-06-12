@@ -51,7 +51,8 @@ export function ProductCard({ id, name, urlImage, price }: ProductCardProps) {
     >
       <img
         className="
-        w-[175px]
+        max-w-[175px]
+        max-h-[175px]
         m-auto          
         "
         src={urlImage}

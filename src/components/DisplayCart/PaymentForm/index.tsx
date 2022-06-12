@@ -86,7 +86,7 @@ export function PaymentForm({
           leaveTo="opacity-0 scale-95"
         >
           <div className="fixed inset-0 flex items-center justify-center">
-            {formState.isSubmitted ? (
+            {(formState.isSubmitSuccessful) ? (
               <ShoppingDoneMessage />
             ) : (
               <Dialog.Panel className="mx-auto relative  rounded-md bg-white w-[calc(100vw-1rem)] sm:w-[450px]  p-2">
