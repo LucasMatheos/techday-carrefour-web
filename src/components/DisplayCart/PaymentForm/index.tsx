@@ -49,7 +49,7 @@ export function PaymentForm({
 
   const handlePaymentConfirm: SubmitHandler<PaymentData> = async (value) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(value);
+    
   };
 
   useEffect(() => {
@@ -89,19 +89,19 @@ export function PaymentForm({
             {(formState.isSubmitSuccessful) ? (
               <ShoppingDoneMessage />
             ) : (
-              <Dialog.Panel className="mx-auto relative  rounded-md bg-white w-[calc(100vw-1rem)] sm:w-[450px]  p-2">
+              <Dialog.Panel className="mx-auto relative  rounded-xl bg-white w-[calc(100vw-1rem)] sm:w-[450px]  p-2">
                 <button
                   onClick={() => setPaymentFormIsOpen(false)}
                   className="absolute right-0 mr-2 "
                 >
                   <X size={28} color="gray" />
                 </button>
-                <Dialog.Title className="font-bold p-2 ">
+                <Dialog.Title className="font-bold p-2 text-xl">
                   Pagamento
                 </Dialog.Title>
                 <form onSubmit={handleSubmit(handlePaymentConfirm)}>
-                  <div className="border-2 p-1 rounded-md">
-                    <label className="p-1 text-sm font-bold flex flex-col gap-1">
+                  <div className=" p-1">
+                    <label className="p-1  font-bold flex flex-col gap-1 h-[80px]">
                       Número do Cartão:
                       <input
                         id="cardNumber"
@@ -114,12 +114,12 @@ export function PaymentForm({
                         {...register("cardNumber")}
                       />
                       {errors.cardNumber && (
-                        <p className="text-xs font-normal text-red-500">
+                        <p className="text-xs font-normal text-red-500  mt-[-3px]">
                           {errors.cardNumber.message}
                         </p>
                       )}
                     </label>
-                    <label className="p-1 text-sm font-bold flex flex-col gap-1">
+                    <label className="p-1  font-bold flex flex-col gap-1 h-[80px]">
                       Nome do Titular:
                       <input
                         id="name"
@@ -131,14 +131,14 @@ export function PaymentForm({
                         {...register("name")}
                       />
                       {errors.name && (
-                        <p className="text-xs font-normal text-red-500">
+                        <p className="text-xs font-normal text-red-500  mt-[-3px]">
                           {errors.name.message}
                         </p>
                       )}
                     </label>
                     <div className="flex justify-between">
-                      <label className="p-1 text-sm font-bold flex flex-col gap-1">
-                        Data de Validade:
+                      <label className="p-1 font-bold flex flex-col gap-1 h-[90px]">
+                        Data de Expiração:
                         <input
                           id="expiryDate"
                           placeholder="00/00"
@@ -149,12 +149,12 @@ export function PaymentForm({
                           {...register("expiryDate")}
                         />
                         {errors.expiryDate && (
-                          <p className="text-xs font-normal text-red-500">
+                          <p className="text-xs font-normal text-red-500 mt-[-3px]">
                             {errors.expiryDate.message}
                           </p>
                         )}
                       </label>
-                      <label className="p-1 text-sm font-bold flex flex-col gap-1">
+                      <label className="p-1  font-bold flex flex-col gap-1 h-[90px]" >
                         CVV:
                         <input
                           id="cvv"
@@ -166,7 +166,7 @@ export function PaymentForm({
                           {...register("cvv")}
                         />
                         {errors.cvv && (
-                          <p className="text-xs font-normal text-red-500">
+                          <p className="text-xs font-normal text-red-500  mt-[-3px]">
                             {errors.cvv.message}
                           </p>
                         )}
@@ -174,7 +174,7 @@ export function PaymentForm({
                     </div>
                     <button
                       type="submit"
-                      className="mx-auto my-2 bg-cfblue-500 flex justify-center text-sm text-[#fff] border-0 rounded-md py-2 px-3 font-bold uppercase hover:bg-cfblue-900 transition duration-300"
+                      className="mx-auto  my-3 bg-cfblue-500 flex justify-center text-[#fff] border-0 rounded-md py-2 px-3 font-bold uppercase hover:bg-cfblue-900 transition duration-300"
                     >
                       {formState.isSubmitting ? <Loading /> : "Confirmar"}
                     </button>

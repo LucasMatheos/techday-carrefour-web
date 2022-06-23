@@ -36,15 +36,17 @@ export function ProductCard({ id, name, urlImage, price }: ProductCardProps) {
 
   return (
     <li
-      className="border-2
+      className="
       rounded-md
       w-full
       sm:w-[13rem]
+      mb-10
+      md:mb-4
       px-2
       pb-4
       flex
       flex-col
-      hover:shadow-lg 
+      hover:shadow-xl
       shadow-[#D9D9D9]
             
       "
@@ -61,7 +63,8 @@ export function ProductCard({ id, name, urlImage, price }: ProductCardProps) {
 
       <p
         className="
-        h-20 
+        h-10
+        md:h-20 
         overflow-ellipsis 
         overflow-hidden
         w-auto 
@@ -71,7 +74,7 @@ export function ProductCard({ id, name, urlImage, price }: ProductCardProps) {
         {name}
       </p>
 
-      <p className=" text-xl  text-cfblue-500 font-bold mt-6 p-1 ">
+      <p className=" text-xl  text-cfblue-500 font-bold md:mt-6 p-2 ">
         <span>{formatPrice(price)}</span>
       </p>
       {cartItensAmount[id] > 0 ? (

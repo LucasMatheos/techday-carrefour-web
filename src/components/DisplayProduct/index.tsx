@@ -5,7 +5,7 @@ export function DisplayProduct() {
   const { products } = useCart();
 
   return (
-    <div className="flex flex-wrap justify-center gap-2 max-w-[1440px] m-auto mt-2">
+    <div className="flex flex-wrap justify-center gap-2 max-w-[1440px] m-auto mt-8">
       {products.map((product) => {
         return (
           <ProductCard

@@ -41,8 +41,9 @@ export function SearchModal() {
   return (
     <>
       <Dialog open={modalIsOpen} onClose={() => {}} className="relative z-50">
-        <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
 
+        <div className="fixed inset-0 bg-white" aria-hidden="true" />
+        <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
         <div className="fixed inset-0 flex items-center justify-center p-4 ">
           <div className="flex min-h-full items-center justify-center ">
             <Dialog.Panel className="flex flex-col items-center md:w-[550px]  md:h-[275px] rounded-lg bg-white/90 p-4 ">
