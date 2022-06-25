@@ -104,10 +104,10 @@ export function PaymentForm({
                   <div className=" p-1">
                     <label className="p-1  font-bold flex flex-col gap-1 h-[80px]">
                       Número do Cartão:
-                      <InputMask
+                      <input
                         id="cardNumber"
-                        mask="creditCard"
                         type="text"
+                        maxLength={16}
                         placeholder="0000 0000 0000 0000"
                         className={`border-[1px] border-black/40 rounded-md p-1 w-full ${
                           errors.cardNumber ? "border-red-500" : ""
