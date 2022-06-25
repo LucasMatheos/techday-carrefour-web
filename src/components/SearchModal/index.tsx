@@ -3,6 +3,7 @@ import { KeyboardEvent, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import { useCart } from "../../hooks/useCart";
 import { formatPostalCode } from "../../util/format";
+import { InputMask } from "../InputMask";
 import { Loading } from "./Loading";
 
 export function SearchModal() {
@@ -29,7 +30,9 @@ export function SearchModal() {
 
   function handleSearch() {
     handleSetCep();
-    cepNumber ? getProducts(cepNumber) : null;
+    cepNumber ? getProducts(cepNumber.replace("-","")) : null;
+    
+
   }
 
   useEffect(() => {
@@ -74,16 +77,15 @@ export function SearchModal() {
                   <p className="p-2">
                     Digite um CEP para buscar uma loja mais proxima de você!
                   </p>
-                  <div className="mt-4 ">
-                    <input
-                      ref={textInput}
-                      type="text"
+                  <div className="mt-4 flex">
+                    <InputMask
+                      mask="postalCode"
+                      refInput={textInput}
                       placeholder="00000-000"
-                      pattern="[0-9]{5}-[0-9]{3}"
-                      maxLength={8}
                       className="  p-2 w-[150px] bg-slate-200 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-cfblue-500"
                       onKeyDown={(e) => handleEnterPress(e)}
                     />
+
                     <button
                       onClick={handleSearch}
                       className="text-white  bg-cfblue-500 rounded-r-lg p-2 mr-1 "

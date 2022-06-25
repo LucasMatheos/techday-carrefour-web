@@ -6,6 +6,7 @@ import { KeyboardEvent, useRef } from "react";
 import { toast } from "react-toastify";
 import { Loading } from "../SearchModal/Loading";
 import { Link } from "react-router-dom";
+import { InputMask } from "../InputMask";
 
 export function Header() {
   let textInput = useRef<HTMLInputElement | null>(null);
@@ -30,7 +31,7 @@ export function Header() {
 
   function handleSearch() {
     handleSetCep();
-    cepNumber ? getProducts(cepNumber) : null;
+    cepNumber ? getProducts(cepNumber.replace("-","")) : null;
   }
 
   return (
@@ -46,12 +47,11 @@ export function Header() {
         <Loading />
       ) : (
         <div className="flex p-[0.75px] mt-2 align-center bg-cfblue-500 rounded-md max-w-[350px] sm:mt-0">
-          <input
-            ref={textInput}
-            type="text"
+          <InputMask
+            refInput={textInput}
+            mask={"postalCode"}
             placeholder="Busque outro CEP:"
-            maxLength={8}
-            className=" p-2 bg-slate-200 border-2 border-cfblue-500 rounded-lg md:w-56"
+            className=" p-2 bg-slate-200 border-2 border-cfblue-500 rounded-lg md:w-56 h-full"
             onKeyDown={(e) => handleEnterPress(e)}
           />
           <button className="p-3 rounded-r-lg " onClick={() => handleSearch()}>
