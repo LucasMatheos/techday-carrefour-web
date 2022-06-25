@@ -46,7 +46,7 @@ Rota: `/products` que retorna os produtos da venda mais  próxima a partir do pa
 
 [https://techday-carrefour-server.up.railway.app/products?sellerName=${firstSellerId}](https://techday-carrefour-server.up.railway.app/products?sellerName=$%7BfirstSellerId%7D)
 
-### Fronend
+### Frontend
 
 O projeto do Frontend foi criado utilizando [React](https://pt-br.reactjs.org) com [TypeScript](https://www.typescriptlang.org) a partir do [Vite](http://vitejs.dev) e faz uso de varias bibliotecas listadas a seguir:
 
@@ -61,7 +61,7 @@ O projeto do Frontend foi criado utilizando [React](https://pt-br.reactjs.org) c
 
 ### Uso
 
-Clonar o repositório utilizando o `git clone` ou baixa-lo compactado como .`zip`.
+Clonar o repositório utilizando o `git clone` ou baixá-lo compactado como .`zip`.
 
 Abrir o a pasta do repositório e instalar as dependências do `package.json` utilizando o `yarn` ou `yarn install`
 
