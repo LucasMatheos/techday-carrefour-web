@@ -46,9 +46,9 @@ export function ProductCard({ id, name, urlImage, price }: ProductCardProps) {
       pb-4
       flex
       flex-col
-      hover:shadow-xl
-      shadow-[#D9D9D9]
-            
+      hover:shadow-2xl
+      shadow-gray-100
+      hover:bg-gray-100
       "
     >
       <img
@@ -63,7 +63,7 @@ export function ProductCard({ id, name, urlImage, price }: ProductCardProps) {
 
       <p
         className="
-        h-10
+        h-15
         md:h-20 
         overflow-ellipsis 
         overflow-hidden
