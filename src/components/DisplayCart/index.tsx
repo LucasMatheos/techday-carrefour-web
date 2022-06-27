@@ -63,7 +63,7 @@ export function DisplayCart() {
                         type="text"
                         readOnly
                         value={product.amount}
-                        className="border-[1px] rounded-md text-[#646464] p-[6px] w-12"
+                        className="border-[1px] rounded-md text-[#646464] p-[6px] w-8 md:w-12"
                       />
                       <button
                         type="button"

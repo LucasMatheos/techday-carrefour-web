@@ -51,7 +51,7 @@ export function Header() {
             refInput={textInput}
             mask={"postalCode"}
             placeholder="Busque outro CEP:"
-            className=" p-2 bg-slate-200 border-2 border-cfblue-500 rounded-lg md:w-56 h-full"
+            className=" p-2 bg-slate-200 border-2 border-cfblue-500 rounded-lg md:w-56 h-full focus:outline-none focus:ring-2 focus:ring-cfblue-900"
             onKeyDown={(e) => handleEnterPress(e)}
           />
           <button className="p-3 rounded-r-lg " onClick={() => handleSearch()}>
