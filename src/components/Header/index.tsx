@@ -49,6 +49,7 @@ export function Header() {
         <div className="flex p-[0.75px] mt-2 align-center bg-cfblue-500 rounded-md max-w-[350px] sm:mt-0">
           <InputMask
             refInput={textInput}
+            pattern="[0-9]*"
             mask={"postalCode"}
             placeholder="Busque outro CEP:"
             className=" p-2 bg-slate-200 border-2 border-cfblue-500 rounded-lg md:w-56 h-full focus:outline-none focus:ring-2 focus:ring-cfblue-900"

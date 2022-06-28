@@ -48,7 +48,7 @@ export function ProductCard({ id, name, urlImage, price }: ProductCardProps) {
       flex-col
       hover:shadow-2xl
       shadow-gray-100
-      hover:bg-gray-100
+      
       "
     >
       <img

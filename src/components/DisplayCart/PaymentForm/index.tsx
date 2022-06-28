@@ -106,6 +106,7 @@ export function PaymentForm({
                       Número do Cartão:
                       <input
                         id="cardNumber"
+                        pattern="[0-9]*"
                         type="text"
                         maxLength={16}
                         placeholder="0000 0000 0000 0000"
@@ -159,6 +160,7 @@ export function PaymentForm({
                         CVV:
                         <input
                           id="cvv"
+                          pattern="[0-9]*"
                           maxLength={3}
                           type="text"
                           className={`border-[1px] border-black/40 rounded-md p-1 w-24 ${
